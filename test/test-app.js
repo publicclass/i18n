@@ -22,8 +22,16 @@ app.get("/2",function(req,res,next){
 })
 
 app.get("/3",function(req,res,next){
+  res.send("This is just a plain string from the i18n instance (with a context):" + req.i18n.t("embedded",{i:{can:{haz:"BULA"}}}))
+})
+
+app.get("/4",function(req,res,next){
   res.render("index.ejs", {layout:false})
 })
 
+app.get("/5",function(req,res,next){
+  app.set("i18n path",__dirname+"/locale.js")
+  res.send("This is just a plain string from the i18n instance (with a context):" + req.i18n.t("embedded",{i:{can:{haz:"BULA"}}}))
+})
 
 app.listen(1234)
