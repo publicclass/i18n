@@ -1,6 +1,6 @@
 # I18n 
 
-A very simple localization utility which integrates nicely with express.
+A very simple localization utility which integrates nicely with [expressjs](http://expressjs.com).
 
 
 ## Usage
@@ -30,7 +30,7 @@ Or if you'd prefer to store multiple languages in one locale file (for whatever 
 	}
 
 
-Recommended use is through express (it registers itself if express is available):
+Recommended use is through express (it registers itself to `express.i18n` if express is available):
 
 	server.use(express.i18n(__dirname+"/locale","en"))
 
@@ -70,7 +70,8 @@ And when used in express it automatically sets the context when rendering to the
 	
 	*	Possible "i18n ping" options: "never" (default on NODE\_ENV=production), "always" (default on NODE_ENV=development), "30m" (time based, every 30 min in this example) or "15r" (request based, every 15 requests)
 	*	Should force refresh the locale on shift-reload in the browser (Is that the "Pragma: no-cache"-header?)
-		
+
+*	Check "Accept-Language"-header for the default language, see [this example](https://github.com/masylum/connect-i18n/blob/master/lib/connect-i18n.js). 
 
 *	Test it out properly, especially with other templates than EJS.
 
@@ -84,6 +85,8 @@ And when used in express it automatically sets the context when rendering to the
 * [TJ Holowaychuck](https://github.com/visionmedia), for the incredibly simple [expressjs server](http://expressjs.com/).
 
 * [SenchaLabs](https://github.com/senchalabs), for the clever [connect middleware layer](https://github.com/senchalabs/connect) which is the base of expressjs.
+
+* [Masylum](https://github.com/masylum), for [connect-i18n](https://github.com/masylum/connect-i18n) which parses the "accept-language"-header.
 
 
 ## License 
