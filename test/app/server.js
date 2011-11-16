@@ -1,5 +1,5 @@
 var express = require("express")
-  , I18n = require("../lib/i18n");
+  , I18n = require("../../");
 
 var app = express()
 app.set("views",__dirname)
