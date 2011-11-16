@@ -16,15 +16,6 @@ As I can't think of a good npm package name right now (the obvious ones are alre
 	}
 
 
-## Test
-
-Clone the repository, install the dev dependencies and run `npm test`
-
-	$ git clone git://github.com/publicclass/i18n.git
-	$ cd i18n
-	$ npm install -d
-	$ npm test
-
 ## Usage
 
 Create a locale file in one of these ways:
@@ -84,6 +75,16 @@ Then it's available in your templates (as a registered helper) like this:
 	
 	
 And when used in express it automatically sets the context when rendering to the locale itself, so you'll be able to access a.very.simple in the 'ejs' localized string example above as expected. _NOTE: However this will not apply automatically when using the I18n instance by itself._
+
+
+## Test
+
+Clone the repository, install the dev dependencies and run `npm test`
+
+	$ git clone git://github.com/publicclass/i18n.git
+	$ cd i18n
+	$ npm install -d
+	$ npm test
 
 
 ## TODO
