@@ -32,7 +32,7 @@ Or if you'd prefer to store multiple languages in one locale file (for whatever 
 
 Recommended use is through express (it registers itself to `express.i18n` if express is available):
 
-	server.use(express.i18n(__dirname+"/locale","en"))
+	server.use(I18n.middleware("en",__dirname+"/locale"))
 
 
 And then you may change the settings whenever you'd like with:
