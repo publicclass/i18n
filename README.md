@@ -2,6 +2,7 @@
 
 A very simple localization utility which integrates nicely with [expressjs](http://expressjs.com).
 
+**NOTE: This is currently only for Express 3.x-alpha**
 
 ## Install
 	
