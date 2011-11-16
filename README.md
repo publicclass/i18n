@@ -5,19 +5,17 @@ A very simple localization utility which integrates nicely with [expressjs](http
 
 ## Usage
 
-Create a locale file like:
+Create a locale file in one of these ways:
+
+	// en.json
+	{ "a": { "very": { "simple": "obj with a string" } },
+		"ejs": "I contain an <%= a.very.simple %>" }
 
 	// locale/en.js
 	module.exports = {
-		a: {
-			very: {
-				simple: "obj with a string"
-			}
-		},
+		a: { very: { simple: "obj with a string" } },
 		ejs: "I contain an <%= a.very.simple %>"
 	}
-
-Or if you'd prefer to store multiple languages in one locale file (for whatever reason), you may do like this:
 
 	// locale.js
 	exports.en = {
@@ -30,7 +28,7 @@ Or if you'd prefer to store multiple languages in one locale file (for whatever 
 	}
 
 
-Recommended use is through express (it registers itself to `express.i18n` if express is available):
+Recommended use is through express by adding it as a middleware:
 
 	server.use(I18n.middleware("en",__dirname+"/locale"))
 
@@ -40,12 +38,17 @@ And then you may change the settings whenever you'd like with:
 	server.set("i18n path",__dirname+"/locale")
 	server.set("i18n lang","en")
 
+For instance by reacting to a query param or 'Accept-Language'-header:
 
-For instance by reacting to a query param:
-
+	// Directly in the Route
 	server.get("/",function(req,res,next){
-		server.set("i18n lang",req.query.lang || "en");
+		server.set("i18n lang",req.query.lang);
 		res.render("index");
+	})
+
+	// Or using a simple middleware
+	server.use(function(req,res,next){
+		req.app.set('i18n lang',req.query.lang || req.app.get('accept-language'))
 	})
 
 
@@ -55,7 +58,7 @@ Then it's available in your templates (as a registered helper) like this:
 	I haz <%= t("a.very.simple") %>
 
 	// jade (or how is helpers called within jade?)
-	= t "a.very.simple"
+	p= t "a.very.simple"
 	
 	
 And when used in express it automatically sets the context when rendering to the locale itself, so you'll be able to access a.very.simple in the 'ejs' localized string example above as expected. _NOTE: However this will not apply automatically when using the I18n instance by itself._
