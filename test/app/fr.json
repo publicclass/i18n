@@ -1,0 +1,4 @@
+{
+  "i": { "can": { "haz": "localisation" } },
+  "embedded": "Avec un peu %{i.can.haz} du fichier de langue."
+}
