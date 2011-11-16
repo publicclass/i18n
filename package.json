@@ -1,12 +1,15 @@
 {
   "name": "i18n",
   "description": "A very simple localization utility. Does wonders with express.",
-  "homepage": "http://github.com/publicclass/i18n",
+  "homepage": "https://github.com/publicclass/i18n",
   "version": "0.1.0",
   "author": "Robert Sköld <robert@publicclass.se>",
   "dependencies": {},
+  "devDependencies": {
+    "express": "git://github.com/visionmedia/express.git",
+    "ejs": "*",
+    "jade": "*"
+  },
   "keywords": ["i18n", "localization"],
-  "main": "./lib/i18n.js",
-//  "scripts": { "test": "expresso test/test-open-uri.js" },
-  "engines": { "node": ">= 0.2.0" }
+  "engines": { "node": ">= 0.6.0" }
 }
