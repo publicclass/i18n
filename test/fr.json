@@ -1,0 +1,8 @@
+{"yes":"Oui",
+ "name":"Salut, mon nom est %{name}",
+ "family":"Mon papa est %{father.age} et ma mère est %{mother.age}",
+ "deeper":{"than":{"that": "Voici!"}},
+ "inbox":{
+    "one":"1 message",
+    "other":"%{count} messages"},
+ "inbox2":["1 message","%{count} messages"]}
