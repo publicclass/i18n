@@ -3,6 +3,28 @@
 A very simple localization utility which integrates nicely with [expressjs](http://expressjs.com).
 
 
+## Install
+	
+As I can't think of a good npm package name right now (the obvious ones are already taken) right now you'll have to add this repository to your `package.json`.
+
+
+	// package.json
+	...
+	"dependencies":{
+		...
+		"i18n": "git://github.com/publicclass/i18n.git"
+	}
+
+
+## Test
+
+Clone the repository, install the dev dependencies and run `npm test`
+
+	$ git clone git://github.com/publicclass/i18n.git
+	$ cd i18n
+	$ npm install -d
+	$ npm test
+
 ## Usage
 
 Create a locale file in one of these ways:
