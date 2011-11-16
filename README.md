@@ -74,12 +74,6 @@ And when used in express it automatically sets the context when rendering to the
 	*	Possible "i18n ping" options: "never" (default on NODE\_ENV=production), "always" (default on NODE_ENV=development), "30m" (time based, every 30 min in this example) or "15r" (request based, every 15 requests)
 	*	Should force refresh the locale on shift-reload in the browser (Is that the "Pragma: no-cache"-header?)
 
-*	Check "Accept-Language"-header for the default language, see [this example](https://github.com/masylum/connect-i18n/blob/master/lib/connect-i18n.js). 
-
-*	Test it out properly, especially with other templates than EJS.
-
-*	Make the tests automated instead of just a web server.
-
 
 ## Thanks to
 
