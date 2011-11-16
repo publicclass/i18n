@@ -1,3 +1,6 @@
+// Since the tests usually is run from the root we chdir to __dirname first.
+process.chdir(__dirname);
+
 var I18n = require('../')
   , assert = require('assert')
   , en = new I18n()
