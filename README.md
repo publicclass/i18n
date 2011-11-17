@@ -1,8 +1,6 @@
 # I18n 
 
-A very simple localization utility which integrates nicely with [expressjs](http://expressjs.com).
-
-**NOTE: This is currently only for Express 3.x-alpha**
+A very simple localization utility which integrates nicely with [Express](http://expressjs.com) (both 2.x and 3.x-alpha).
 
 ## Install
 	
@@ -86,6 +84,7 @@ Clone the repository, install the dev dependencies and run `npm test`
 
 	$ git clone git://github.com/publicclass/i18n.git
 	$ cd i18n
+	$ (cd test/middleware/deps/express2.x && npm install) 	# to install express 2.x dependencies
 	$ npm install -d
 	$ npm test
 
