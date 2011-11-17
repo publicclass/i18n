@@ -89,6 +89,13 @@ Clone the repository, install the dev dependencies and run `npm test`
 	$ npm test
 
 
+## History
+
+* [0.2.0] Now also supports Express 2.x.
+
+* [0.1.0]	Initial version.
+
+
 ## TODO
 
 *	Be able to pass an URI to the locale file from where it will be loaded:
