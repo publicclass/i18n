@@ -1,50 +1,115 @@
-var server = require('./middleware/server3.x.js')
-  , assert = require('assert');
+var app = require('./middleware/server3.x.js')
+  , request = require('./support/http');
 
-module.exports = {
-  'server is running': function(){
-    assert.response(server,{method:'GET',url:'/1'},{status:200,body:'This is just a plain string'})
-  },
-  'with locale as context (en)': function(){
-    assert.response(server,{method:'GET',url:'/2'},{status:200,body:'With some localization from the locale file.'})
-  },
-  'with locale as context (fr)': function(){
-    assert.response(server,{method:'GET',url:'/2?lang=fr'},{status:200,body:'Avec un peu localisation du fichier de langue.'})
-  },
-  'with locale as context (sv)': function(){
-    assert.response(server,{method:'GET',url:'/2?lang=sv'},{status:200,body:'Med lite lokalisering från språkfilen.'})
-  },
-  'with a custom context (en)': function(){
-    assert.response(server,{method:'GET',url:'/3'},{status:200,body:'With some BULA from the locale file.'})
-  },
-  'with a custom context (sv)': function(){
-    assert.response(server,{method:'GET',url:'/3?lang=sv'},{status:200,body:'Med lite BULA från språkfilen.'})
-  },
-  'with a custom context (fr)': function(){
-    assert.response(server,{method:'GET',url:'/3?lang=fr'},{status:200,body:'Avec un peu BULA du fichier de langue.'})
-  },
-  'using an ejs template (en)': function(){
-   assert.response(server,{method:'GET',url:'/4'},{status:200,body:'<p>With some localization from the locale file.</p>'}) 
-  },
-  'using an ejs template (fr)': function(){
-   assert.response(server,{method:'GET',url:'/4?lang=fr'},{status:200,body:'<p>Avec un peu localisation du fichier de langue.</p>'}) 
-  },
-  'using an ejs template (sv)': function(){
-   assert.response(server,{method:'GET',url:'/4?lang=sv'},{status:200,body:'<p>Med lite lokalisering från språkfilen.</p>'}) 
-  },
-  'using a jade template (en)': function(){
-   assert.response(server,{method:'GET',url:'/5'},{status:200,body:'<p>With some localization from the locale file.</p>'}) 
-  },
-  'using a jade template (fr)': function(){
-   assert.response(server,{method:'GET',url:'/5?lang=fr'},{status:200,body:'<p>Avec un peu localisation du fichier de langue.</p>'}) 
-  },
-  'using a jade template (sv)': function(){
-   assert.response(server,{method:'GET',url:'/5?lang=sv'},{status:200,body:'<p>Med lite lokalisering från språkfilen.</p>'}) 
-  },
-  'using an set locale path (en)': function(){
-   assert.response(server,{method:'GET',url:'/6'},{status:200,body:'With some BULA from another locale file.'}) 
-  },
-  'using an set locale path (sv)': function(){
-   assert.response(server,{method:'GET',url:'/6?lang=sv'},{status:200,body:'Med lite BULA från en annan språkfil.'}) 
-  }
-}
+
+describe('express 3.x',function(){
+  
+  it('server is running', function(done){
+    request(app)
+      .get('/1')
+      .expect('This is just a plain string',done)
+  })
+
+  describe('en',function(){
+
+    it('with locale as context', function(done){
+      request(app)
+        .get('/2')
+        .expect('With some localization from the locale file.',done)
+    })
+      
+    it('with a custom context', function(done){
+      request(app)
+        .get('/3')
+        .expect('With some BULA from the locale file.',done)
+    })
+
+    it('using an ejs template', function(done){
+      request(app)
+        .get('/4')
+        .expect('<p>With some localization from the locale file.</p>',done)
+    })
+
+    it('using a jade template', function(done){
+      request(app)
+        .get('/5')
+        .expect('<p>With some localization from the locale file.</p>',done)
+    })
+
+    it('using an set locale path', function(done){
+      request(app)
+        .get('/6')
+        .expect('With some BULA from another locale file.',done)
+    })
+
+  })
+
+  describe('fr',function(){
+
+    it('with locale as context', function(done){
+      request(app)
+        .get('/2?lang=fr')
+        .expect('Avec un peu localisation du fichier de langue.',done)
+    })
+      
+    it('with a custom context', function(done){
+      request(app)
+        .get('/3?lang=fr')
+        .expect('Avec un peu BULA du fichier de langue.',done)
+    })
+
+    it('using an ejs template', function(done){
+      request(app)
+        .get('/4?lang=fr')
+        .expect('<p>Avec un peu localisation du fichier de langue.</p>',done)
+    })
+
+    it('using a jade template', function(done){
+      request(app)
+        .get('/5?lang=fr')
+        .expect('<p>Avec un peu localisation du fichier de langue.</p>',done)
+    })
+
+    it('using an set locale path (no locale)', function(done){
+      request(app)
+        .get('/6?lang=fr')
+        .expect('',done)
+    })
+    
+  })
+
+  describe('sv',function(){
+
+    it('with locale as context', function(done){
+      request(app)
+        .get('/2?lang=sv')
+        .expect('Med lite lokalisering från språkfilen.',done)
+    })
+      
+    it('with a custom context', function(done){
+      request(app)
+        .get('/3?lang=sv')
+        .expect('Med lite BULA från språkfilen.',done)
+    })
+
+    it('using an ejs template', function(done){
+      request(app)
+        .get('/4?lang=sv')
+        .expect('<p>Med lite lokalisering från språkfilen.</p>',done)
+    })
+
+    it('using a jade template', function(done){
+      request(app)
+        .get('/5?lang=sv')
+        .expect('<p>Med lite lokalisering från språkfilen.</p>',done)
+    })
+
+    it('using an set locale path', function(done){
+      request(app)
+        .get('/6?lang=sv')
+        .expect('Med lite BULA från en annan språkfil.',done)
+    })
+    
+  })
+
+})

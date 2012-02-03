@@ -6,12 +6,13 @@
   "author": "Robert Sköld <robert@publicclass.se>",
   "dependencies": {},
   "devDependencies": {
-    "expresso": "*",
+    "mocha": "0.10.2",
     "express": "git://github.com/visionmedia/express.git",
-    "ejs": "*",
-    "jade": "*"
+    "ejs": "0.6.1",
+    "jade": "0.20.0",
+    "should": "0.5.1"
   },
-  "scripts": {"test": "expresso test/test-*"},
-  "keywords": ["i18n", "localization"],
+  "scripts": {"test": "mocha -r should test/test-*.js"},
+  "keywords": ["i18n", "localization", "express", "connect"],
   "engines": { "node": ">= 0.6.0" }
 }

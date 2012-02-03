@@ -2,7 +2,7 @@ var express = require("./deps/express2.x")
   , I18n = require("../../")
   , ejs = require('ejs');
 
-var app = express.createServer()
+var app = module.exports = express.createServer()
 app.set("views",__dirname)
 app.use(I18n.middleware("en",__dirname))
 
@@ -43,5 +43,5 @@ app.get("/6",function(req,res,next){
   res.send(req.i18n.t("embedded",{i:{can:{haz:"BULA"}}}))
 })
 
-module.exports = app.listen(process.env.PORT || 0)
+app.listen(0)
 

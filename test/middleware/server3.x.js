@@ -1,24 +1,9 @@
 var express = require("express")
-  , I18n = require("../../")
-  , ejs = require('ejs');
-
-// Adds Express 3.x support to ejs
-ejs.__express = function(filename,opts,fn){
-  var source = require('fs').readFileSync(filename, 'utf-8');
-  try {
-    delete opts.use;
-    opts.locals = opts;
-    var result = ejs.render(source,opts)
-  } catch(e){
-    return fn(e);
-  }
-  fn(null,result);
-}
+  , I18n = require("../../");
 
 var app = express()
 app.set("views",__dirname)
 app.use(I18n.middleware("en",__dirname))
-
 /** 
  * A little middleware for changing locale based on a 'lang' query param.
  * 
@@ -44,7 +29,7 @@ app.get("/3",function(req,res,next){
 })
 
 app.get("/4",function(req,res,next){
-  res.render("index.ejs", {layout:false})
+  res.render("index.ejs")
 })
 
 app.get("/5",function(req,res,next){
