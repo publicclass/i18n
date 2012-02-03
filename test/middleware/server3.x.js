@@ -1,9 +1,10 @@
 var express = require("express")
   , I18n = require("../../");
 
-var app = express()
+var app = module.exports = express()
 app.set("views",__dirname)
 app.use(I18n.middleware("en",__dirname))
+
 /** 
  * A little middleware for changing locale based on a 'lang' query param.
  * 
@@ -40,6 +41,3 @@ app.get("/6",function(req,res,next){
   app.set("i18n path",__dirname+"/locale.js")
   res.send(req.i18n.t("embedded",{i:{can:{haz:"BULA"}}}))
 })
-
-module.exports = app.listen(process.env.PORT || 0)
-
