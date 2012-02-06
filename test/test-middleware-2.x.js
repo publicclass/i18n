@@ -115,7 +115,7 @@ describe('express 2.x',function(){
 
 // see description of this in test-middleware-3.x.js
 describe('nested', function(){
-  var express = require('./middleware/deps/express2.x')
+  var express = require('./support/express2.x')
     , I18n = require('../');
 
   var child = express.createServer();

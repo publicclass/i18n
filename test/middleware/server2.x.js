@@ -1,4 +1,4 @@
-var express = require("./deps/express2.x")
+var express = require("../support/express2.x")
   , I18n = require("../../")
   , ejs = require('ejs');
 

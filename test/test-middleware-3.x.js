@@ -144,14 +144,26 @@ describe('nested', function(){
   var express = require('express')
     , I18n = require('../');
 
+  // child with middleware
   var child = express();
+  child.set('views',__dirname+'/middleware')
   child.use(I18n.middleware('en',__dirname+'/middleware')); // = test/middleware/en.js
   child.get('/',function(req,res){ res.send(req.i18n.t(req.params.key,req.query)) })
+  child.get('/ejs',function(req,res){ res.render("index.ejs")})
   child.get('/:key?',function(req,res){ res.send(req.i18n.t(req.params.key,req.query)) })
     
+  // TODO support child without a middleware
+  var child2 = express();
+  child2.set('views',__dirname+'/middleware')
+  child2.get('/',function(req,res){res.render("index.ejs")})
+
   var parent = express();
   parent.use(I18n.middleware('en',__dirname)); // = test/en.json
-  parent.use('/child',child); // mounted after i18n to make sure i18n is on the stack already (or it won't merge)
+
+  // mount after i18n to make sure i18n is on the stack already (or it won't merge)
+  parent.use('/child',child); 
+  parent.use('/child2',child2); 
+
   parent.get('/:key?',function(req,res){ res.send(req.i18n.t(req.params.key,req.query)) })
 
   describe('/', function(){
@@ -180,7 +192,7 @@ describe('nested', function(){
   describe('/child', function(){
     it('should respond',function(done){
       request(parent)
-        .get('/child/')
+        .get('/child')
         .expect(200,done);
     })
     // overridden
@@ -201,6 +213,28 @@ describe('nested', function(){
         .get('/child/special')
         .expect('Special!',done);
     })
+    // test `t()`
+    it('should render with a template',function(done){
+      request(parent)
+        .get('/child/ejs')
+        .expect('<p>With some localization from the locale file.</p>',done)
+    })
   })
+
+  // TODO child apps should inherit parents helper
+  // describe('/child2', function(){
+  //   it('should respond',function(done){
+  //     request(parent)
+  //       .get('/child2')
+  //       .expect(200,done);
+  //   })
+
+  //   // test `t()`
+  //   it('should render with a template',function(done){
+  //     request(parent)
+  //       .get('/child2')
+  //       .expect('<p>With some localization from the locale file.</p>',done)
+  //   })
+  // })
 
 })
