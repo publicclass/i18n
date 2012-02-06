@@ -70,10 +70,10 @@ describe('server.3.x',function(){
         .expect('<p>Avec un peu localisation du fichier de langue.</p>',done)
     })
 
-    it('using an set locale path (no locale)', function(done){
+    it('using an set locale path (inherited)', function(done){
       request(app)
         .get('/6?lang=fr')
-        .expect('',done)
+        .expect('Avec un peu BULA du fichier de langue.',done)
     })
     
   })
@@ -115,12 +115,38 @@ describe('server.3.x',function(){
 })
 
 
+
+// We want a specific I18n instance per app and lang which is then extended 
+// with paths. Example app structure:
+//  / 
+//    I18n.middleware('en',__dirname+'/locale')
+//    app.i18n = {en: new I18n, fr: new I18n}
+//    - en (./locale/en.js)
+//    - fr (./locale/fr.js)
+//  /1 (child app)
+//    I18n.middleware('en',__dirname)
+//    app.i18n = {en: parent.i18n[en].extend(new I18n), fr: parent.i18n[fr].extend(new I18n), sv: new I18n}
+//    - en (./locale/en.js,./en.json) < inherited from / and extended
+//    - fr (./locale/fr.js) < inherited from /
+//    - sv (./sv.js) < extended
+//  /1/1 (childs child app)
+//    I18n.middleware('en',__dirname)
+//    app.i18n = {en: parent.i18n[en].extend(new I18n), fr: parent.i18n[fr].extend(new I18n), sv: new I18n}
+//    - en (./locale/en.js,./en.json) < inherited from /1 and /
+//    - fr (./locale/fr.js) < inherited from /
+//    - sv (./sv.js) < inherited from /1
+//  /2 (another child app)
+//    app.i18n = parent.i18n (no middleware used, req will be passed along and use parent.i18n if no local exists)
+//    - en (./locale/en.js) < inherited from /
+//    - fr (./locale/fr.js) < inherited from /
+
 describe('nested', function(){
   var express = require('express')
     , I18n = require('../');
 
   var child = express();
   child.use(I18n.middleware('en',__dirname+'/middleware')); // = test/middleware/en.js
+  child.get('/',function(req,res){ res.send(req.i18n.t(req.params.key,req.query)) })
   child.get('/:key?',function(req,res){ res.send(req.i18n.t(req.params.key,req.query)) })
     
   var parent = express();
@@ -154,7 +180,7 @@ describe('nested', function(){
   describe('/child', function(){
     it('should respond',function(done){
       request(parent)
-        .get('/child')
+        .get('/child/')
         .expect(200,done);
     })
     // overridden
