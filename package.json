@@ -2,7 +2,7 @@
   "name": "i18n",
   "description": "A very simple localization utility. Does wonders with express.",
   "homepage": "https://github.com/publicclass/i18n",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Robert Sköld <robert@publicclass.se>",
   "dependencies": {},
   "devDependencies": {

@@ -91,6 +91,8 @@ Clone the repository, install the dev dependencies and run `npm test`
 
 ## History
 
+* [0.3.0] Rewrote tests to use [mocha](https://github.com/visionmedia/mocha) instead. Support for nested connect/express apps.
+
 * [0.2.0] Now also supports Express 2.x.
 
 * [0.1.0]	Initial version.
